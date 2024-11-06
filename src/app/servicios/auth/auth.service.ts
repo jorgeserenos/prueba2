@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { usuarioLog } from './../../interfaces/usuarioLog';
 import { cuerpoUs } from 'src/app/interfaces/cuerpoLogin'; 
 import { Router } from '@angular/router'
+import { BehaviorSubject } from 'rxjs'; 
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,9 @@ export class AuthService {
   private readonly URL_LOGIN: string = 'https://dummyjson.com/auth/login';
   public usuarioLog: usuarioLog | null = null;
   public accessToken: string | null = null;
+
+  public $cargando = new BehaviorSubject<boolean>(false);
+  public cargando = this.$cargando.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -26,7 +30,7 @@ export class AuthService {
     }
     this.http.post<usuarioLog>(this.URL_LOGIN,JSON.stringify(cuerpo),{
       headers: {
-        'content-type': 'application/json'
+        'Content-type': 'application/json'
       }
     })
 
