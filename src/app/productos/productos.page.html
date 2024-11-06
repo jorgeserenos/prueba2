@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>productos</ion-title>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-button (click)="exit()">salir</ion-button>
+    </ion-buttons>
+    <ion-title>Catálogo</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -8,20 +11,29 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-toolbar>
-          <ion-title>Cantidad</ion-title>
+        <ion-toolbar color="light">
+          <ion-title color="primary" style="font-weight: bold; font-size: 1.2em;">
+            Cantidad
+          </ion-title>
         </ion-toolbar>
       </ion-col>
     </ion-row>
+
     <ion-row>
       <ion-col>
         <ion-list *ngIf="productos">
-          <ion-item *ngFor="let producto of productos" >
-            <ion-avatar aria-hidden="true" slot="start">
+          <ion-item 
+            *ngFor="let producto of productos" 
+            lines="none" 
+            style="--ion-background-color: #f8f8f8; margin: 8px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <ion-avatar slot="start">
               <img alt="" [src]="producto.thumbnail" />
             </ion-avatar>
-            <ion-label>{{  producto.title }}</ion-label>
-            <ion-label></ion-label>
+            <ion-label>
+              <h2 style="font-weight: bold;">{{ producto.title }}</h2>
+              <p style="color: hsl(239, 87%, 47%);">Precio: {{ producto.price | currency }}</p>
+              <p style="color: #ff3b30;">Descuento: {{ producto.discountPercentage }}%</p>
+            </ion-label>
           </ion-item>
         </ion-list>
       </ion-col>
